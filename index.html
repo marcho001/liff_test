@@ -17,7 +17,9 @@
     const params = new URLSearchParams(urlObj.search);
     const channel = params.get("channel");
     const el = document.createElement('div')
-    el.innerHTML = `${channel}       search: ${urlObj.search}           ${JSON.stringify(urlObj)}`
+    const liffToken = liff.getIDToken()
+  const profile = liff.getProfile()
+    el.innerHTML = `${channel}   liffToken: ${liffToken}   profile: ${profile}       search: ${urlObj.search}           ${JSON.stringify(urlObj)}`
     appEl.appendChild(el)
 
     if (channel === 'liff' && urlObj.host.includes('liff.line')){
