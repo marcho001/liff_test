@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script >
+  const appEl = document.querySelector('#app')
+
+    const urlObj = new URL(window.location.href)
+    const params = new URLSearchParams(urlObj.search);
+    const channel = params.get("channel");
+    const el = document.createElement('div')
+    el.innerHTML = `${channel}       search: ${urlObj.search}           ${JSON.stringify(urlObj)}`
+    appEl.appendChild(el)
+
+    if (channel === 'liff' && urlObj.host.includes('liff.line')){
+      const pathDirs = urlObj.pathname.split('/').filter(item => !!item)
+      const liffId = pathDirs[0]
+      const el = document.createElement('div')
+      el.innerHTML = `liffId: ${liffId}            search: ${urlObj.search}  `
+      appEl.appendChild(el)
+
+      liff.init({
+        liffId
+      })
+    }
+</script>
+</body>
+</html>
