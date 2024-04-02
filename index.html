@@ -12,17 +12,10 @@
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script >
   const appEl = document.querySelector('#app')
+  const urlObj = new URL(window.location.href)
+  const params = new URLSearchParams(urlObj.search);
+  const channel = params.get("channel");
 
-    const urlObj = new URL(window.location.href)
-    const params = new URLSearchParams(urlObj.search);
-    const channel = params.get("channel");
-    const el = document.createElement('div')
-    const liffToken = liff.getIDToken()
-  const profile = liff.getProfile()
-    el.innerHTML = `${channel}   liffToken: ${liffToken}   profile: ${profile}       search: ${urlObj.search}           ${JSON.stringify(urlObj)}`
-    appEl.appendChild(el)
-
-    if (channel === 'liff' && urlObj.host.includes('liff.line')){
       const pathDirs = urlObj.pathname.split('/').filter(item => !!item)
       const liffId = pathDirs[0]
       const el = document.createElement('div')
@@ -31,8 +24,18 @@
 
       liff.init({
         liffId
+      }).then(() => {
+
       })
-    }
+
+
+
+      const el2 = document.createElement('div')
+      const liffToken = liff.getIDToken()
+      const profile = liff.getProfile()
+      el2.innerHTML = `${channel}   liffToken: ${liffToken}   profile: ${profile}       search: ${urlObj.search}           ${JSON.stringify(urlObj)}`
+      appEl.appendChild(el2)
+
 </script>
 </body>
 </html>
